@@ -137,12 +137,12 @@ a {
 
 @font-face {
   font-family: 'GothamBook';
-  src: url(../../../public/fonts/GothamBook.ttf);
+  src: url('/fonts/GothamBook.ttf');
 }
 
 @font-face {
   font-family: 'GothamBold';
-  src: url(../../../public/fonts/GothamBold.ttf);
+  src: url('/fonts/GothamBold.ttf');
 }
 
 html {
