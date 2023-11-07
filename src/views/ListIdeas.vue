@@ -1,7 +1,15 @@
 <style scoped></style>
 
 <template>
-  <main></main>
+  <Layout> </Layout>
 </template>
 
-<script setup></script>
+<script>
+import Layout from '../components/Layout.vue'
+
+export default {
+  components: {
+    Layout
+  }
+}
+</script>
