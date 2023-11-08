@@ -7,7 +7,7 @@
     <div class="container flex-header">
       <RouterLink to="/">
         <div class="contain-logo">
-          <img src="../assets/img/logo.png" alt="Logo" />
+          <img src="../assets/img/logo.png" alt="logo" />
           <div class="txt-logo">
             <p class="txt-header-idee">Boîte à Idées</p>
             <p class="txt-header-human">HUMAN</p>
@@ -16,7 +16,7 @@
       </RouterLink>
 
       <nav role="navigation">
-        <RouterLink to="/formulaire-ajout" v-if="$route.path === '/'">
+        <RouterLink to="/" v-if="$route.path === '/'">
           Ajouter une idée
           <img src="../assets/img/icon-ajouter.png" alt="icône" />
         </RouterLink>

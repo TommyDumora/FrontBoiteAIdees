@@ -1,4 +1,6 @@
-<style scoped></style>
+<style scoped>
+@import '../assets/css/list-ideas.css';
+</style>
 
 <template>
   <Layout>
@@ -6,7 +8,40 @@
       <section class="list-idees">
         <h1>Liste des idées</h1>
 
-        <ul class="contain-idee"></ul>
+        <ul class="contain-idee">
+          <li v-for="idee in ideas" :key="idee.ideaId" class="idee">
+            <img
+              src="../assets/img/icon-delete.png"
+              alt="icone supprimer"
+              @click="deleteIdea(idee.ideaId)"
+            />
+            <img
+              src="../assets/img/icon-modifier.png"
+              alt="icone modifier"
+              @click="updateIdea(idee.ideaId)"
+            />
+
+            <!-- <a href="javascript:void(0);">
+              <img v-if="idee.nbLikes > 0" src="../assets/img/coeur-plein.png" alt="" />
+              <img v-else src="../assets/img/coeur-vide.png" alt="" />
+              <p class="like">{{ idee.nbLikes }}</p>
+            </a>
+
+            <a href="javascript:void(0);">
+              <img v-if="idee.nbDislikes > 0" src="../assets/img/dislike-plein.png" alt="" />
+              <img v-else src="../assets/img/dislike-vide.png" alt="" />
+              <p class="dislike">{{ idee.nbDislikes }}</p>
+            </a> -->
+
+            <p class="date">{{ idee.createdAt }}</p>
+
+            <p class="categorie" @click="viewIdea(idee.ideaId)">
+              {{ idee.categoryName }}
+            </p>
+            <!-- <p>{{ idee.description }}</p> -->
+            <p class="titre" @click="viewIdea(idee.ideaId)">{{ idee.title }}</p>
+          </li>
+        </ul>
       </section>
     </main>
   </Layout>
@@ -14,37 +49,55 @@
 
 <script>
 import Layout from '../components/Layout.vue'
-// import apiService from '../services/apiService'
-import axios from 'axios'
+import apiService from '../services/apiService'
 
 export default {
   data() {
     return {
-      ideas: []
-      // loading: false
+      ideas: [],
+      loading: false
     }
   },
   methods: {
-    async getAllIdeas() {
+    async fetchIdeas() {
       try {
-        const response = await axios.get('https://localhost:7031/api/Ideas')
-        this.ideas = response.data
+        this.loading = true
+        this.ideas = await apiService.getIdeas()
         console.log(this.ideas)
       } catch (error) {
         console.error(error)
+      } finally {
+        this.loading = false
       }
+    },
+
+    async deleteIdea(ideaId) {
+      try {
+        await apiService.deleteIdea(ideaId)
+        this.fetchIdeas()
+      } catch (error) {
+        console.error(error)
+      }
+    },
+
+    // async updateIdea(ideaId, updatedIdeaData) {
+    //   try {
+    //     await apiService.updateIdea(ideaId, updatedIdeaData)
+    //     this.fetchIdeas()
+    //   } catch (error) {
+    //     console.error(error)
+    //   }
+    // },
+    async updateIdea(ideaId) {
+      this.$router.push(`/update-idea/${ideaId}`)
+    },
+
+    async viewIdea(ideaId) {
+      this.$router.push(`/view-idea/${ideaId}`)
     }
   },
   async mounted() {
-    this.getAllIdeas()
-    // this.loading = true
-    // try {
-    //   this.ideas = await apiService.getIdeas()
-    // } catch (error) {
-    //   console.error(error)
-    // } finally {
-    //   this.loading = false
-    // }
+    this.fetchIdeas()
   },
   components: {
     Layout
