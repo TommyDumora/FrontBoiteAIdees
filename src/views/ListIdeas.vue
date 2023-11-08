@@ -38,7 +38,6 @@
             <p class="categorie" @click="viewIdea(idee.ideaId)">
               {{ idee.categoryName }}
             </p>
-            <!-- <p>{{ idee.description }}</p> -->
             <p class="titre" @click="viewIdea(idee.ideaId)">{{ idee.title }}</p>
           </li>
         </ul>
@@ -49,7 +48,7 @@
 
 <script>
 import Layout from '../components/Layout.vue'
-import apiService from '../services/apiService'
+import apiService from '../services/apiService.js'
 
 export default {
   data() {
@@ -63,7 +62,6 @@ export default {
       try {
         this.loading = true
         this.ideas = await apiService.getIdeas()
-        console.log(this.ideas)
       } catch (error) {
         console.error(error)
       } finally {
@@ -80,14 +78,6 @@ export default {
       }
     },
 
-    // async updateIdea(ideaId, updatedIdeaData) {
-    //   try {
-    //     await apiService.updateIdea(ideaId, updatedIdeaData)
-    //     this.fetchIdeas()
-    //   } catch (error) {
-    //     console.error(error)
-    //   }
-    // },
     async updateIdea(ideaId) {
       this.$router.push(`/update-idea/${ideaId}`)
     },

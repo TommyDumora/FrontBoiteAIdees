@@ -31,7 +31,7 @@
 
 <script>
 import Layout from '../components/Layout.vue'
-import apiService from '../services/apiService'
+import apiService from '../services/apiService.js'
 
 export default {
   data() {

@@ -5,6 +5,7 @@ const api = axios.create({
 })
 
 export default {
+  // Idées
   async getIdeas() {
     try {
       const response = await api.get('Ideas')
@@ -36,6 +37,16 @@ export default {
       await api.put(`Ideas/${ideaId}`, updatedIdeaData)
     } catch (error) {
       throw new Error("Impossible de mettre à jour l'idée.")
+    }
+  },
+
+  // Catégories
+  async getCategories() {
+    try {
+      const response = await api.get('Categories')
+      return response.data
+    } catch (error) {
+      throw new Error('Impossible de récupérer les catégories.')
     }
   }
 }
