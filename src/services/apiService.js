@@ -34,9 +34,18 @@ export default {
 
   async updateIdea(ideaId, updatedIdea) {
     try {
-      await api.put(`Ideas/${ideaId}`, updatedIdea)
+      const response = await api.put(`Ideas/${ideaId}`, updatedIdea)
+      return response.data
     } catch (error) {
       throw new Error("Impossible de mettre à jour l'idée.")
+    }
+  },
+
+  async addIdea(addIdea) {
+    try {
+      await api.post('Ideas', addIdea)
+    } catch (error) {
+      throw new Error("Impossible de créer l'idée.")
     }
   },
 

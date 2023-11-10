@@ -1,10 +1,12 @@
+<style scoped></style>
+
 <template>
   <Layout>
     <FormIdea
       :formTitle="formTitle"
-      :formData="idee"
+      :formData="newIdea"
       :categories="categories"
-      :submitForm="updateIdea"
+      :submitForm="addIdea"
       :submitButtonLabel="submitButtonLabel"
       :ideaPlaceholder="ideaPlaceholder"
     />
@@ -19,34 +21,33 @@ import FormIdea from '../components/Form.vue'
 export default {
   data() {
     return {
-      formTitle: 'Modifier une idée',
-      idee: {},
+      formTitle: 'Ajouter une idée',
+      newIdea: {
+        title: '',
+        description: '',
+        categoryId: null,
+        userId: 1
+      },
       categories: [],
-      submitButtonLabel: 'Modifier',
-      ideaPlaceholder: {}
+      submitButtonLabel: 'Ajouter',
+      ideaPlaceholder: {
+        title: "Écrire un titre pour l'idée",
+        description: "Écrire une description pour l'idée",
+        categoryId: 'Sélectionnez une catégorie'
+      }
     }
   },
   methods: {
-    async fetchIdeaToEdit(ideaId) {
+    async addIdea() {
       try {
-        const idea = await apiService.getIdea(ideaId)
-        this.idee = { ...idea }
-      } catch (error) {
-        console.error("Erreur lors de la récupération de l'idée à modifier:", error)
-      }
-    },
-    async updateIdea() {
-      try {
-        await apiService.updateIdea(this.idee.ideaId, this.idee)
+        await apiService.addIdea(this.newIdea)
         this.$router.push('/')
       } catch (error) {
-        console.error("Erreur lors de la mise à jour de l'idée:", error)
+        console.error("Erreur lors de la création de l'idée:", error)
       }
     }
   },
   async mounted() {
-    const ideaId = this.$route.params.ideaId
-    await this.fetchIdeaToEdit(ideaId)
     try {
       this.categories = await apiService.getCategories()
     } catch (error) {

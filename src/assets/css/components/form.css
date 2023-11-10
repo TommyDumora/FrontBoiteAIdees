@@ -79,5 +79,5 @@ form label {
   cursor: pointer;
   padding: 6px 12px;
   gap: 10px;
-  width: 186px;
+  width: fit-content;
 }

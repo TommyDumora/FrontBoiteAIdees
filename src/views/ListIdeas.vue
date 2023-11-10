@@ -67,8 +67,11 @@ export default {
 
     async deleteIdea(ideaId) {
       try {
-        await apiService.deleteIdea(ideaId)
-        this.fetchIdeas()
+        const confirmDelete = window.confirm("Voulez-vous vraiment supprimer l'idée?")
+        if (confirmDelete) {
+          await apiService.deleteIdea(ideaId)
+          this.fetchIdeas()
+        }
       } catch (error) {
         console.error(error)
       }

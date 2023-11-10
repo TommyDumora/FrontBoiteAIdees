@@ -5,7 +5,7 @@
 <template>
   <header>
     <div class="container flex-header">
-      <RouterLink to="/">
+      <RouterLink :to="{ name: 'ListIdeas' }">
         <div class="contain-logo">
           <img src="../assets/img/logo.png" alt="logo" />
           <div class="txt-logo">
@@ -16,12 +16,12 @@
       </RouterLink>
 
       <nav role="navigation">
-        <RouterLink to="/" v-if="$route.path === '/'">
+        <RouterLink :to="{ name: 'AddIdea' }" v-if="$route.path === '/'">
           Ajouter une idée
           <img src="../assets/img/icon-ajouter.png" alt="icône" />
         </RouterLink>
 
-        <RouterLink to="/" v-else>
+        <RouterLink :to="{ name: 'ListIdeas' }" v-else>
           Liste des idées
           <img src="../assets/img/icon-liste.png" alt="icône" />
         </RouterLink>

@@ -15,7 +15,7 @@
             id="titre"
             name="titre"
             v-model="formData.title"
-            :placeholder="formData.title"
+            :placeholder="ideaPlaceholder.title"
           />
         </div>
 
@@ -25,7 +25,7 @@
             name="choisir-categorie"
             id="choisir-categorie"
             v-model="formData.categoryId"
-            :placeholder="formData.categoryId"
+            :placeholder="ideaPlaceholder.categoryId"
           >
             <option value="" disabled selected>Sélectionnez une catégorie</option>
             <option
@@ -42,7 +42,7 @@
           <label for="contenu">Contenu</label>
           <textarea
             v-model="formData.description"
-            :placeholder="formData.description"
+            :placeholder="ideaPlaceholder.description"
             id="contenu"
             name="contenu"
           ></textarea>
@@ -59,18 +59,13 @@
 
 <script>
 export default {
-  data() {
-    return {
-      categoryId: null,
-      categoryName: ''
-    }
-  },
   props: {
     formTitle: String,
     formData: Object,
     categories: Array,
     submitForm: Function,
-    submitButtonLabel: String
+    submitButtonLabel: String,
+    ideaPlaceholder: Object
   }
 }
 </script>
