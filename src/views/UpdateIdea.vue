@@ -32,37 +32,29 @@ export default {
     async fetchIdeaToEdit(ideaId) {
       try {
         const idea = await apiService.getIdea(ideaId)
-        this.idee = {
-          id: idea.ideaId,
-          title: idea.title,
-          categoryName: idea.categoryName,
-          description: idea.description
-        }
+        this.idee = { ...idea }
+        console.log(this.idee)
       } catch (error) {
         console.error("Erreur lors de la récupération de l'idée à modifier:", error)
       }
     },
     async updateIdea() {
       try {
-        await apiService.updateIdea(this.idee.id, this.idee)
+        await apiService.updateIdea(this.idee.ideaId, this.idee)
         this.$router.push('/')
       } catch (error) {
         console.error("Erreur lors de la mise à jour de l'idée:", error)
       }
     }
   },
-  created() {
+  async mounted() {
     const ideaId = this.$route.params.ideaId
-    this.fetchIdeaToEdit(ideaId)
-
-    apiService
-      .getCategories()
-      .then((categories) => {
-        this.categories = categories
-      })
-      .catch((error) => {
-        console.error('Erreur lors de la récupération des catégories:', error)
-      })
+    await this.fetchIdeaToEdit(ideaId)
+    try {
+      this.categories = await apiService.getCategories()
+    } catch (error) {
+      console.error('Erreur lors de la récupération des catégories:', error)
+    }
   },
   components: {
     Layout,

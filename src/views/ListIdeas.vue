@@ -53,19 +53,15 @@ import apiService from '../services/apiService.js'
 export default {
   data() {
     return {
-      ideas: [],
-      loading: false
+      ideas: []
     }
   },
   methods: {
     async fetchIdeas() {
       try {
-        this.loading = true
         this.ideas = await apiService.getIdeas()
       } catch (error) {
         console.error(error)
-      } finally {
-        this.loading = false
       }
     },
 

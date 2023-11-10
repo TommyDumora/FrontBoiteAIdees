@@ -32,9 +32,9 @@ export default {
     }
   },
 
-  async updateIdea(ideaId, updatedIdeaData) {
+  async updateIdea(ideaId, updatedIdea) {
     try {
-      await api.put(`Ideas/${ideaId}`, updatedIdeaData)
+      await api.put(`Ideas/${ideaId}`, updatedIdea)
     } catch (error) {
       throw new Error("Impossible de mettre à jour l'idée.")
     }

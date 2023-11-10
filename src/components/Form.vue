@@ -7,7 +7,7 @@
     <section class="main-form-add">
       <h1>{{ formTitle }}</h1>
 
-      <form @submit="submitForm" action="" method="post">
+      <form @submit.prevent="submitForm" action="" method="post">
         <div class="form-titre">
           <label for="titre">Titre</label>
           <input
@@ -24,13 +24,13 @@
           <select
             name="choisir-categorie"
             id="choisir-categorie"
-            v-model="formData.categoryName"
-            :placeholder="formData.categoryName"
+            v-model="formData.categoryId"
+            :placeholder="formData.categoryId"
           >
             <option value="" disabled selected>Sélectionnez une catégorie</option>
             <option
               v-for="category in categories"
-              :value="category.name"
+              :value="category.categoryId"
               :key="category.categoryId"
             >
               {{ category.name }}
@@ -59,6 +59,12 @@
 
 <script>
 export default {
+  data() {
+    return {
+      categoryId: null,
+      categoryName: ''
+    }
+  },
   props: {
     formTitle: String,
     formData: Object,
