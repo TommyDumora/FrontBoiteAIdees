@@ -1,18 +1,15 @@
 <template>
-  <Layout>
-    <FormIdea
-      :formTitle="formTitle"
-      :formData="idee"
-      :categories="categories"
-      :submitForm="updateIdea"
-      :submitButtonLabel="submitButtonLabel"
-      :ideaPlaceholder="ideaPlaceholder"
-    />
-  </Layout>
+  <FormIdea
+    :formTitle="formTitle"
+    :formData="idee"
+    :categories="categories"
+    :submitForm="updateIdea"
+    :submitButtonLabel="submitButtonLabel"
+    :ideaPlaceholder="ideaPlaceholder"
+  />
 </template>
 
 <script>
-import Layout from '../components/Layout.vue'
 import apiService from '../services/apiService.js'
 import FormIdea from '../components/Form.vue'
 
@@ -54,7 +51,6 @@ export default {
     }
   },
   components: {
-    Layout,
     FormIdea
   }
 }

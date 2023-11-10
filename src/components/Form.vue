@@ -16,6 +16,7 @@
             name="titre"
             v-model="formData.title"
             :placeholder="ideaPlaceholder.title"
+            required
           />
         </div>
 
@@ -25,13 +26,14 @@
             name="choisir-categorie"
             id="choisir-categorie"
             v-model="formData.categoryId"
-            :placeholder="ideaPlaceholder.categoryId"
+            :disabled="categories.length === 0"
+            required
           >
-            <option value="" disabled selected>Sélectionnez une catégorie</option>
             <option
               v-for="category in categories"
               :value="category.categoryId"
               :key="category.categoryId"
+              :disabled="category.categoryId === null"
             >
               {{ category.name }}
             </option>
@@ -45,6 +47,7 @@
             :placeholder="ideaPlaceholder.description"
             id="contenu"
             name="contenu"
+            required
           ></textarea>
         </div>
 

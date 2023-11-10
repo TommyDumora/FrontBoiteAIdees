@@ -3,25 +3,24 @@
 </style>
 
 <template>
-  <Layout>
-    <main class="container">
-      <section class="list-idees">
-        <h1>Liste des idées</h1>
+  <main class="container">
+    <section class="list-idees">
+      <h1>Liste des idées</h1>
 
-        <ul class="contain-idee">
-          <li v-for="idee in ideas" :key="idee.ideaId" class="idee">
-            <img
-              src="../assets/img/icon-delete.png"
-              alt="icone supprimer"
-              @click="deleteIdea(idee.ideaId)"
-            />
-            <img
-              src="../assets/img/icon-modifier.png"
-              alt="icone modifier"
-              @click="updateIdea(idee.ideaId)"
-            />
+      <ul class="contain-idee">
+        <li v-for="idee in ideas" :key="idee.ideaId" class="idee">
+          <img
+            src="../assets/img/icon-delete.png"
+            alt="icone supprimer"
+            @click="deleteIdea(idee.ideaId)"
+          />
+          <img
+            src="../assets/img/icon-modifier.png"
+            alt="icone modifier"
+            @click="updateIdea(idee.ideaId)"
+          />
 
-            <!-- <a href="javascript:void(0);">
+          <!-- <a href="javascript:void(0);">
               <img v-if="idee.nbLikes > 0" src="../assets/img/coeur-plein.png" alt="" />
               <img v-else src="../assets/img/coeur-vide.png" alt="" />
               <p class="like">{{ idee.nbLikes }}</p>
@@ -33,21 +32,19 @@
               <p class="dislike">{{ idee.nbDislikes }}</p>
             </a> -->
 
-            <p class="date">{{ idee.createdAt }}</p>
+          <p class="date">{{ idee.createdAt }}</p>
 
-            <p class="categorie" @click="viewIdea(idee.ideaId)">
-              {{ idee.categoryName }}
-            </p>
-            <p class="titre" @click="viewIdea(idee.ideaId)">{{ idee.title }}</p>
-          </li>
-        </ul>
-      </section>
-    </main>
-  </Layout>
+          <p class="categorie" @click="viewIdea(idee.ideaId)">
+            {{ idee.categoryName }}
+          </p>
+          <p class="titre" @click="viewIdea(idee.ideaId)">{{ idee.title }}</p>
+        </li>
+      </ul>
+    </section>
+  </main>
 </template>
 
 <script>
-import Layout from '../components/Layout.vue'
 import apiService from '../services/apiService.js'
 
 export default {
@@ -87,9 +84,6 @@ export default {
   },
   async mounted() {
     this.fetchIdeas()
-  },
-  components: {
-    Layout
   }
 }
 </script>

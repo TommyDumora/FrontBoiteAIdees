@@ -1,20 +1,17 @@
 <style scoped></style>
 
 <template>
-  <Layout>
-    <FormIdea
-      :formTitle="formTitle"
-      :formData="newIdea"
-      :categories="categories"
-      :submitForm="addIdea"
-      :submitButtonLabel="submitButtonLabel"
-      :ideaPlaceholder="ideaPlaceholder"
-    />
-  </Layout>
+  <FormIdea
+    :formTitle="formTitle"
+    :formData="newIdea"
+    :categories="categories"
+    :submitForm="addIdea"
+    :submitButtonLabel="submitButtonLabel"
+    :ideaPlaceholder="ideaPlaceholder"
+  />
 </template>
 
 <script>
-import Layout from '../components/Layout.vue'
 import apiService from '../services/apiService.js'
 import FormIdea from '../components/Form.vue'
 
@@ -31,14 +28,17 @@ export default {
       categories: [],
       submitButtonLabel: 'Ajouter',
       ideaPlaceholder: {
-        title: "Écrire un titre pour l'idée",
-        description: "Écrire une description pour l'idée",
-        categoryId: 'Sélectionnez une catégorie'
+        title: "Écrivez un titre pour votre l'idée",
+        description: "Écrivez une description pour votre l'idée"
       }
     }
   },
   methods: {
     async addIdea() {
+      if (!this.newIdea.categoryId || this.newIdea.categoryId === 'Sélectionnez une catégorie') {
+        alert('Veuillez sélectionner une catégorie.')
+        return
+      }
       try {
         await apiService.addIdea(this.newIdea)
         this.$router.push('/')
@@ -50,12 +50,15 @@ export default {
   async mounted() {
     try {
       this.categories = await apiService.getCategories()
+      this.categories.unshift({
+        categoryId: null,
+        name: 'Sélectionnez une catégorie'
+      })
     } catch (error) {
       console.error('Erreur lors de la récupération des catégories:', error)
     }
   },
   components: {
-    Layout,
     FormIdea
   }
 }
