@@ -1,0 +1,83 @@
+.main-form-add {
+  display: flex;
+  flex-direction: column;
+  padding: 36px 0px;
+  gap: 48px;
+}
+
+form {
+  gap: 32px;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-titre {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-titre input {
+  max-width: 800px;
+  border: 2px solid var(--primary-color);
+  border-radius: 6px;
+  padding: 0px 20px;
+  height: 50px;
+}
+
+.form-titre input::placeholder {
+  font-size: 2rem;
+  color: #848484;
+}
+
+form label {
+  font-size: 2.4rem;
+}
+
+.form-categorie {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-categorie select {
+  width: 400px;
+  border: 2px solid var(--primary-color);
+  border-radius: 6px;
+  padding: 0px 20px;
+  height: 50px;
+  font-size: 2.4rem;
+  color: #848484;
+}
+
+.form-categorie select option {
+  font-size: 2.4rem;
+  color: #848484;
+}
+
+.form-contenu {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-contenu textarea {
+  max-width: 1200px;
+  height: 300px;
+  border: 2px solid var(--primary-color);
+  border-radius: 6px;
+}
+
+.btn-submit-form-idee {
+  display: flex;
+  align-items: center;
+  font-size: 28px;
+  color: #ffffff;
+  background: var(--primary-color);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  padding: 6px 12px;
+  gap: 10px;
+  width: fit-content;
+}
