@@ -20,17 +20,11 @@
             @click="updateIdea(idee.ideaId)"
           />
 
-          <!-- <a href="javascript:void(0);">
-              <img v-if="idee.nbLikes > 0" src="../assets/img/coeur-plein.png" alt="" />
-              <img v-else src="../assets/img/coeur-vide.png" alt="" />
-              <p class="like">{{ idee.nbLikes }}</p>
-            </a>
-
-            <a href="javascript:void(0);">
-              <img v-if="idee.nbDislikes > 0" src="../assets/img/dislike-plein.png" alt="" />
-              <img v-else src="../assets/img/dislike-vide.png" alt="" />
-              <p class="dislike">{{ idee.nbDislikes }}</p>
-            </a> -->
+          <a @click="likeIdea(idee.ideaId)">
+            <img v-if="idee.likeCount > 0 && !isLiked" src="../assets/img/coeur-plein.png" alt="" />
+            <img v-else src="../assets/img/coeur-vide.png" alt="" />
+            <p class="like">{{ idee.likeCount }}</p>
+          </a>
 
           <p class="date">{{ idee.createdAt }}</p>
 
@@ -50,13 +44,15 @@ import apiService from '../services/apiService.js'
 export default {
   data() {
     return {
-      ideas: []
+      ideas: [],
+      isLiked: false
     }
   },
   methods: {
     async fetchIdeas() {
       try {
         this.ideas = await apiService.getIdeas()
+        console.log(this.ideas)
       } catch (error) {
         console.error(error)
       }
@@ -80,7 +76,20 @@ export default {
 
     async viewIdea(ideaId) {
       this.$router.push(`/view-idea/${ideaId}`)
+    },
+
+    async likeIdea(ideaId) {
+      try {
+        await apiService.addLike(ideaId)
+        this.isLiked = true
+        await this.fetchIdeas()
+      } catch (error) {
+        console.error('Erreur lors de la mise à jour du like :', error)
+      }
     }
+  },
+  updated() {
+    this.isLiked = false
   },
   async mounted() {
     this.fetchIdeas()
