@@ -57,5 +57,14 @@ export default {
     } catch (error) {
       throw new Error('Impossible de récupérer les catégories.')
     }
+  },
+
+  // Likes
+  async addLike(ideaId) {
+    try {
+      await api.post(`UserLikedIdeas/${ideaId}/like`)
+    } catch (error) {
+      throw new Error("Impossible d'ajouter un like.")
+    }
   }
 }
