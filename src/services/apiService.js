@@ -1,4 +1,5 @@
 import axios from 'axios'
+// import { jwtDecode } from 'jwt-decode'
 
 const api = axios.create({
   baseURL: 'https://localhost:7031/api/'
@@ -60,11 +61,27 @@ export default {
   },
 
   // Likes
-  async addLike(ideaId) {
+  async addLike(ideaId, jwt) {
     try {
-      await api.post(`UserLikedIdeas/${ideaId}/like`)
+      await api.post(`UserLikedIdeas/${ideaId}/like`, null, {
+        headers: {
+          Authorization: `Bearer ${jwt}`,
+          'Content-Type': 'application/json'
+        }
+      })
     } catch (error) {
       throw new Error("Impossible d'ajouter un like.")
+    }
+  },
+
+  // Authentification
+  async login(credentials) {
+    try {
+      const response = await api.post('Auth/login', credentials)
+      const token = response.data
+      localStorage.setItem('token', token)
+    } catch (error) {
+      throw new Error("Impossible de récupérer l'utilisateur.")
     }
   }
 }
