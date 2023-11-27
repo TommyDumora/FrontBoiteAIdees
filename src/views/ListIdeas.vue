@@ -10,11 +10,13 @@
       <ul class="contain-idee">
         <li v-for="idee in ideas" :key="idee.ideaId" class="idee">
           <img
+            v-if="userId == idee.userId"
             src="../assets/img/icon-delete.png"
             alt="icone supprimer"
             @click="deleteIdea(idee.ideaId)"
           />
           <img
+            v-if="userId == idee.userId"
             src="../assets/img/icon-modifier.png"
             alt="icone modifier"
             @click="updateIdea(idee.ideaId)"
@@ -40,19 +42,20 @@
 
 <script>
 import apiService from '../services/apiService.js'
+import { jwtDecode } from 'jwt-decode'
 
 export default {
   data() {
     return {
       ideas: [],
-      isLiked: false
+      isLiked: false,
+      userId: null
     }
   },
   methods: {
     async fetchIdeas() {
       try {
         this.ideas = await apiService.getIdeas()
-        console.log(this.ideas)
       } catch (error) {
         console.error(error)
       }
@@ -80,7 +83,8 @@ export default {
 
     async likeIdea(ideaId) {
       try {
-        await apiService.addLike(ideaId)
+        const token = localStorage.getItem('token')
+        await apiService.addLike(ideaId, token)
         this.isLiked = true
         await this.fetchIdeas()
       } catch (error) {
@@ -92,7 +96,13 @@ export default {
     this.isLiked = false
   },
   async mounted() {
-    this.fetchIdeas()
+    await this.fetchIdeas()
+
+    const token = localStorage.getItem('token')
+    if (token) {
+      const decodedToken = jwtDecode(token)
+      this.userId = decodedToken.userId
+    }
   }
 }
 </script>

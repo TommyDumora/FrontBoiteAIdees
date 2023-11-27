@@ -3,6 +3,7 @@ import ListIdeas from '../views/ListIdeas.vue'
 import ViewIdea from '../views/ViewIdea.vue'
 import UpdateIdea from '../views/UpdateIdea.vue'
 import AddIdea from '../views/AddIdea.vue'
+import Auth from '../views/Auth.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -26,6 +27,11 @@ const router = createRouter({
       path: '/add-idea',
       name: 'AddIdea',
       component: AddIdea
+    },
+    {
+      path: '/auth',
+      name: 'Auth',
+      component: Auth
     }
   ]
 })

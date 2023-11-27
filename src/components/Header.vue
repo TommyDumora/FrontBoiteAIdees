@@ -25,6 +25,7 @@
           Liste des idées
           <img src="../assets/img/icon-liste.png" alt="icône" />
         </RouterLink>
+        <RouterLink :to="{ name: 'Auth' }"> Connexion </RouterLink>
       </nav>
     </div>
   </header>
