@@ -2,19 +2,20 @@
 
 <template>
   <div>
-    <form @submit.prevent="login">
+    <form @submit.prevent="signUp">
+      <label>Prénom:</label>
+      <input type="text" v-model="firstName" required />
+
+      <label>Nom:</label>
+      <input type="text" v-model="lastName" required />
+
       <label>Email:</label>
       <input type="email" v-model="email" required />
 
       <label>Mot de passe:</label>
       <input type="password" v-model="password" required />
 
-      <button type="submit">Se connecter</button>
-
-      <p>
-        Pas de compte?
-        <RouterLink :to="{ name: 'SignUp' }">Créer</RouterLink> en un
-      </p>
+      <button type="submit">Envoyer</button>
     </form>
   </div>
 </template>
@@ -25,21 +26,25 @@ import apiService from '../services/apiService.js'
 export default {
   data() {
     return {
+      firstName: '',
+      lastName: '',
       email: '',
       password: ''
     }
   },
   methods: {
-    async login() {
+    async signUp() {
       try {
-        await apiService.login({
+        await apiService.signUp({
+          firstName: this.firstName,
+          lastName: this.lastName,
           email: this.email,
           password: this.password
         })
 
-        this.$router.push('/')
+        this.$router.push('/auth')
       } catch (error) {
-        console.error("Erreur d'authentification:", error)
+        console.error("Erreur de création de l'utilisateur:", error)
       }
     }
   }

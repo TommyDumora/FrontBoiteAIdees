@@ -4,6 +4,7 @@ import ViewIdea from '../views/ViewIdea.vue'
 import UpdateIdea from '../views/UpdateIdea.vue'
 import AddIdea from '../views/AddIdea.vue'
 import Auth from '../views/Auth.vue'
+import SignUp from '../views/SignUp.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -32,6 +33,11 @@ const router = createRouter({
       path: '/auth',
       name: 'Auth',
       component: Auth
+    },
+    {
+      path: '/sign-up',
+      name: 'SignUp',
+      component: SignUp
     }
   ]
 })

@@ -1,5 +1,4 @@
 import axios from 'axios'
-// import { jwtDecode } from 'jwt-decode'
 
 const api = axios.create({
   baseURL: 'https://localhost:7031/api/'
@@ -82,6 +81,15 @@ export default {
       localStorage.setItem('token', token)
     } catch (error) {
       throw new Error("Impossible de récupérer l'utilisateur.")
+    }
+  },
+
+  // User
+  async signUp(user) {
+    try {
+      await api.post('Users', user)
+    } catch (error) {
+      throw new Error("Impossible de créer l'utilisateur.")
     }
   }
 }
