@@ -24,26 +24,41 @@ export default {
     }
   },
 
-  async deleteIdea(ideaId) {
+  async deleteIdea(ideaId, jwt) {
     try {
-      await api.delete(`Ideas/${ideaId}`)
+      await api.delete(`Ideas/${ideaId}`, {
+        headers: {
+          Authorization: `Bearer ${jwt}`,
+          'Content-Type': 'application/json'
+        }
+      })
     } catch (error) {
       throw new Error("Impossible de supprimer l'idée.")
     }
   },
 
-  async updateIdea(ideaId, updatedIdea) {
+  async updateIdea(ideaId, updatedIdea, jwt) {
     try {
-      const response = await api.put(`Ideas/${ideaId}`, updatedIdea)
+      const response = await api.put(`Ideas/${ideaId}`, updatedIdea, {
+        headers: {
+          Authorization: `Bearer ${jwt}`,
+          'Content-Type': 'application/json'
+        }
+      })
       return response.data
     } catch (error) {
       throw new Error("Impossible de mettre à jour l'idée.")
     }
   },
 
-  async addIdea(addIdea) {
+  async addIdea(addIdea, jwt) {
     try {
-      await api.post('Ideas', addIdea)
+      await api.post('Ideas', addIdea, {
+        headers: {
+          Authorization: `Bearer ${jwt}`,
+          'Content-Type': 'application/json'
+        }
+      })
     } catch (error) {
       throw new Error("Impossible de créer l'idée.")
     }

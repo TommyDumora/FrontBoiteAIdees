@@ -10,20 +10,6 @@
     </div>
 
     <p class="view-description">{{ idea.description }}</p>
-
-    <!-- <div class="like-view">
-        <a href="javascript:void(0);">
-          <img v-if="idea.nbLikes > 0" src="../assets/img/coeur-plein.png" alt="" />
-          <img v-else src="../assets/img/coeur-vide.png" alt="" />
-          <p class="like">{{ idea.nbLikes }}</p>
-        </a>
-
-        <a href="javascript:void(0);">
-          <img v-if="idea.nbDislikes > 0" src="../assets/img/dislike-plein.png" alt="" />
-          <img v-else src="../assets/img/dislike-vide.png" alt="" />
-          <p class="dislike">{{ idea.nbDislikes }}</p>
-        </a>
-      </div> -->
   </main>
 </template>
 

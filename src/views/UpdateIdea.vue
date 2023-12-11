@@ -12,6 +12,7 @@
 <script>
 import apiService from '../services/apiService.js'
 import FormIdea from '../components/Form.vue'
+import { jwtDecode } from 'jwt-decode'
 
 export default {
   data() {
@@ -34,7 +35,8 @@ export default {
     },
     async updateIdea() {
       try {
-        await apiService.updateIdea(this.idee.ideaId, this.idee)
+        const token = localStorage.getItem('token')
+        await apiService.updateIdea(this.idee.ideaId, this.idee, token)
         this.$router.push('/')
       } catch (error) {
         console.error("Erreur lors de la mise à jour de l'idée:", error)
@@ -48,6 +50,12 @@ export default {
       this.categories = await apiService.getCategories()
     } catch (error) {
       console.error('Erreur lors de la récupération des catégories:', error)
+    }
+
+    const token = localStorage.getItem('token')
+    if (token) {
+      const decodedToken = jwtDecode(token)
+      this.userId = decodedToken.userId
     }
   },
   components: {

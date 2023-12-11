@@ -14,6 +14,7 @@
 <script>
 import apiService from '../services/apiService.js'
 import FormIdea from '../components/Form.vue'
+import { jwtDecode } from 'jwt-decode'
 
 export default {
   data() {
@@ -23,7 +24,7 @@ export default {
         title: '',
         description: '',
         categoryId: null,
-        userId: 1
+        userId: null
       },
       categories: [],
       submitButtonLabel: 'Ajouter',
@@ -40,7 +41,8 @@ export default {
         return
       }
       try {
-        await apiService.addIdea(this.newIdea)
+        const token = localStorage.getItem('token')
+        await apiService.addIdea(this.newIdea, token)
         this.$router.push('/')
       } catch (error) {
         console.error("Erreur lors de la création de l'idée:", error)
@@ -56,6 +58,12 @@ export default {
       })
     } catch (error) {
       console.error('Erreur lors de la récupération des catégories:', error)
+    }
+
+    const token = localStorage.getItem('token')
+    if (token) {
+      const decodedToken = jwtDecode(token)
+      this.newIdea.userId = decodedToken.userId
     }
   },
   components: {
