@@ -63,9 +63,10 @@ export default {
 
     async deleteIdea(ideaId) {
       try {
+        const token = localStorage.getItem('token')
         const confirmDelete = window.confirm("Voulez-vous vraiment supprimer l'idée?")
         if (confirmDelete) {
-          await apiService.deleteIdea(ideaId)
+          await apiService.deleteIdea(ideaId, token)
           this.fetchIdeas()
         }
       } catch (error) {

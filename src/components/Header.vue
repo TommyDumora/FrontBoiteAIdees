@@ -25,7 +25,12 @@
           Liste des idées
           <img src="../assets/img/icon-liste.png" alt="icône" />
         </RouterLink>
-        <RouterLink :to="{ name: 'Auth' }"> Connexion </RouterLink>
+
+        <RouterLink :to="{ name: 'Auth' }" v-if="!isAuthenticated"> Connexion </RouterLink>
+
+        <RouterLink :to="{ name: 'ListIdeas' }" @click="disconnect" v-else>
+          Déconnexion
+        </RouterLink>
       </nav>
     </div>
   </header>
@@ -33,4 +38,26 @@
   <img class="papier-dechire" src="../assets/img/separation-v2.svg" alt="Papier déchiré" />
 </template>
 
-<script></script>
+<script>
+export default {
+  data() {
+    return {
+      token: null
+    }
+  },
+  methods: {
+    disconnect() {
+      localStorage.removeItem('token')
+      this.token = null // Update the local data property
+    }
+  },
+  computed: {
+    isAuthenticated() {
+      return !!this.token // Convert the token to a boolean
+    }
+  },
+  created() {
+    this.token = localStorage.getItem('token')
+  }
+}
+</script>

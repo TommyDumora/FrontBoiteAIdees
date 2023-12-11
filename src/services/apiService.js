@@ -1,5 +1,4 @@
 import axios from 'axios'
-// import { jwtDecode } from 'jwt-decode'
 
 const api = axios.create({
   baseURL: 'https://localhost:7031/api/'
@@ -25,26 +24,41 @@ export default {
     }
   },
 
-  async deleteIdea(ideaId) {
+  async deleteIdea(ideaId, jwt) {
     try {
-      await api.delete(`Ideas/${ideaId}`)
+      await api.delete(`Ideas/${ideaId}`, {
+        headers: {
+          Authorization: `Bearer ${jwt}`,
+          'Content-Type': 'application/json'
+        }
+      })
     } catch (error) {
       throw new Error("Impossible de supprimer l'idée.")
     }
   },
 
-  async updateIdea(ideaId, updatedIdea) {
+  async updateIdea(ideaId, updatedIdea, jwt) {
     try {
-      const response = await api.put(`Ideas/${ideaId}`, updatedIdea)
+      const response = await api.put(`Ideas/${ideaId}`, updatedIdea, {
+        headers: {
+          Authorization: `Bearer ${jwt}`,
+          'Content-Type': 'application/json'
+        }
+      })
       return response.data
     } catch (error) {
       throw new Error("Impossible de mettre à jour l'idée.")
     }
   },
 
-  async addIdea(addIdea) {
+  async addIdea(addIdea, jwt) {
     try {
-      await api.post('Ideas', addIdea)
+      await api.post('Ideas', addIdea, {
+        headers: {
+          Authorization: `Bearer ${jwt}`,
+          'Content-Type': 'application/json'
+        }
+      })
     } catch (error) {
       throw new Error("Impossible de créer l'idée.")
     }
@@ -82,6 +96,15 @@ export default {
       localStorage.setItem('token', token)
     } catch (error) {
       throw new Error("Impossible de récupérer l'utilisateur.")
+    }
+  },
+
+  // User
+  async signUp(user) {
+    try {
+      await api.post('Users', user)
+    } catch (error) {
+      throw new Error("Impossible de créer l'utilisateur.")
     }
   }
 }
